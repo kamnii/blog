@@ -1,0 +1,12 @@
+{% extends 'layouts/main.html' %}
+
+
+{% block content %}
+    <div class="form">
+        <form action="/users/login/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Login">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+    <style>
+        .post {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .comments {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .comment {
+            background: #242b2e;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .create_comment {
+            width: 70%;
+            margin-left: 15%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class="post">
+        <div class="img">
+            <img src="/media/{{ post.image }}/" alt="">
+
+        </div>
+        <div class="info">
+            <div style="display: flex; justify-content: space-between">
+                <h1>{{ post.title }}</h1>
+                <h1>{{ post.author.username }}</h1>
+            </div>
+            <h5>{{ post.description }}</h5>
+            <div class="hashtags">
+                {% for hashtag in hashtags %}
+                    <p>{{ hashtag.title }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="create_comment">
+        {% if user %}
+            <form action="/posts/{{ post.id }}/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-primary" value="Оставить комментарий">
+        </form>
+        {% endif %}
+    </div>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="author">{{ comment.author.username }}</p>
+                <p class="text">{{ comment.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
